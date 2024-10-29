@@ -14,8 +14,6 @@ app.use(cors());
 // Middleware to parse JSON bodies
 app.use(express.json());
 
-// New endpoint for fetching inscriptions
-
 function preHash(timestamp, method, path, body) {
   // Make sure body is properly stringified when it exists
   const bodyStr = body ? JSON.stringify(body) : '';

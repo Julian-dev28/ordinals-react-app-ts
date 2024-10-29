@@ -77,7 +77,6 @@ OKX_API_SECRET=
 OKX_API_PASSPHRASE=
 ```
 
-
 5. Start the proxy server:
 ```
 node ordinals-server.cjs
