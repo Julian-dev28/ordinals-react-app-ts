@@ -1,7 +1,7 @@
 // src/components/RetrieveInscriptions.tsx
-import React, { useState, useCallback } from 'react';
-import okxService from '../services/okxService';
-import '../theme.css';
+import React, { useState, useCallback } from "react";
+import okxService from "../services/okxService";
+import "../theme.css";
 
 interface InscriptionInfo {
     inscriptionId: string;
@@ -21,30 +21,32 @@ interface ApiResponse {
 }
 
 const RetrieveInscriptions: React.FC = () => {
-    const [slug, setSlug] = useState('fractal-pepe-1');
-    const [walletAddress, setWalletAddress] = useState('bc1p8gqcyljmuqa5rqaqyfdxv37ta47nzr2n2cr8sypmtvv0ylppn55sj3euxe');
-    const [limit, setLimit] = useState('10');
+    const [slug, setSlug] = useState("fractal-pepe-1");
+    const [walletAddress, setWalletAddress] = useState(
+        "bc1p8gqcyljmuqa5rqaqyfdxv37ta47nzr2n2cr8sypmtvv0ylppn55sj3euxe",
+    );
+    const [limit, setLimit] = useState("20");
     const [isBrc20, setIsBrc20] = useState(false);
-    const [cursor, setCursor] = useState('');
-    const [sort, setSort] = useState('');
+    const [cursor, setCursor] = useState("");
+    const [sort, setSort] = useState("");
     const [result, setResult] = useState<ApiResponse | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
 
     const validateInputs = useCallback((): boolean => {
         if (!slug.trim()) {
-            setError('Slug is required');
+            setError("Slug is required");
             return false;
         }
 
         if (!walletAddress.trim()) {
-            setError('Wallet address is required');
+            setError("Wallet address is required");
             return false;
         }
 
         const limitNum = parseInt(limit);
         if (isNaN(limitNum) || limitNum < 1 || limitNum > 100) {
-            setError('Limit must be between 1 and 100');
+            setError("Limit must be between 1 and 100");
             return false;
         }
 
@@ -64,15 +66,18 @@ const RetrieveInscriptions: React.FC = () => {
                 limit,
                 isBrc20,
                 ...(cursor && { cursor }),
-                ...(sort && { sort })
+                ...(sort && { sort }),
             });
 
-            console.log('Response received:', response);
+            console.log("Response received:", response);
             setResult(response);
-
         } catch (error) {
-            console.error('Error details:', error);
-            setError(error instanceof Error ? error.message : 'Error fetching inscriptions data');
+            console.error("Error details:", error);
+            setError(
+                error instanceof Error
+                    ? error.message
+                    : "Error fetching inscriptions data",
+            );
         } finally {
             setLoading(false);
         }
@@ -144,12 +149,20 @@ const RetrieveInscriptions: React.FC = () => {
                         className="sort-select"
                     >
                         <option value="">Select sorting</option>
-                        <option value="listing_time_desc">Listing Time (Descending)</option>
-                        <option value="listing_time_asc">Listing Time (Ascending)</option>
+                        <option value="listing_time_desc">
+                            Listing Time (Descending)
+                        </option>
+                        <option value="listing_time_asc">
+                            Listing Time (Ascending)
+                        </option>
                         <option value="price_desc">Price (Descending)</option>
                         <option value="price_asc">Price (Ascending)</option>
-                        <option value="unitprice_desc">Unit Price (Descending)</option>
-                        <option value="unitprice_asc">Unit Price (Ascending)</option>
+                        <option value="unitprice_desc">
+                            Unit Price (Descending)
+                        </option>
+                        <option value="unitprice_asc">
+                            Unit Price (Ascending)
+                        </option>
                     </select>
                 </div>
 
@@ -157,9 +170,9 @@ const RetrieveInscriptions: React.FC = () => {
                     <button
                         onClick={fetchValidInscriptions}
                         disabled={loading}
-                        className={`fetch-button ${loading ? 'disabled' : ''}`}
+                        className={`fetch-button ${loading ? "disabled" : ""}`}
                     >
-                        {loading ? 'Loading...' : 'Retrieve Inscriptions'}
+                        {loading ? "Loading..." : "Retrieve Inscriptions"}
                     </button>
                 </div>
             </div>
@@ -175,37 +188,75 @@ const RetrieveInscriptions: React.FC = () => {
             {result && (
                 <div className="results-section">
                     <div className="quote-details">
-                        <h3>Response Status: {result.code === 0 ? 'Success' : 'Error'}</h3>
-                        {result.msg && <p className="response-message">{result.msg}</p>}
+                        <h3>
+                            Response Status:{" "}
+                            {result.code === 0 ? "Success" : "Error"}
+                        </h3>
+                        {result.msg && (
+                            <p className="response-message">{result.msg}</p>
+                        )}
 
                         {result.code === 0 && result.data?.inscriptionInfos && (
                             <>
                                 <div className="results-info">
-                                    <p>Found {result.data.inscriptionInfos.length} inscriptions</p>
+                                    <p>
+                                        Found{" "}
+                                        {result.data.inscriptionInfos.length}{" "}
+                                        inscriptions
+                                    </p>
                                     {result.data.cursor && (
-                                        <p>Next Page Cursor: {result.data.cursor}</p>
+                                        <p>
+                                            Next Page Cursor:{" "}
+                                            {result.data.cursor}
+                                        </p>
                                     )}
                                 </div>
 
                                 <div className="quote-compare-list">
-                                    {result.data.inscriptionInfos.map((info, index) => (
-                                        <div key={`${info.inscriptionId}-${index}`} className="data-item">
-                                            <div className="inscription-header">
-                                                <strong>Inscription #{index + 1}</strong>
+                                    {result.data.inscriptionInfos.map(
+                                        (info, index) => (
+                                            <div
+                                                key={`${info.inscriptionId}-${index}`}
+                                                className="data-item"
+                                            >
+                                                <div className="inscription-header">
+                                                    <strong>
+                                                        Inscription #{index + 1}
+                                                    </strong>
+                                                </div>
+                                                <div className="inscription-details">
+                                                    <div>
+                                                        <strong>ID:</strong>{" "}
+                                                        {info.inscriptionId}
+                                                    </div>
+                                                    <div>
+                                                        <strong>NFT ID:</strong>{" "}
+                                                        {info.nftId}
+                                                    </div>
+                                                    <div>
+                                                        <strong>Amount:</strong>{" "}
+                                                        {info.amount}
+                                                    </div>
+                                                    {info.ticker && (
+                                                        <div>
+                                                            <strong>
+                                                                Ticker:
+                                                            </strong>{" "}
+                                                            {info.ticker}
+                                                        </div>
+                                                    )}
+                                                    {info.tickerId && (
+                                                        <div>
+                                                            <strong>
+                                                                Ticker ID:
+                                                            </strong>{" "}
+                                                            {info.tickerId}
+                                                        </div>
+                                                    )}
+                                                </div>
                                             </div>
-                                            <div className="inscription-details">
-                                                <div><strong>ID:</strong> {info.inscriptionId}</div>
-                                                <div><strong>NFT ID:</strong> {info.nftId}</div>
-                                                <div><strong>Amount:</strong> {info.amount}</div>
-                                                {info.ticker && (
-                                                    <div><strong>Ticker:</strong> {info.ticker}</div>
-                                                )}
-                                                {info.tickerId && (
-                                                    <div><strong>Ticker ID:</strong> {info.tickerId}</div>
-                                                )}
-                                            </div>
-                                        </div>
-                                    ))}
+                                        ),
+                                    )}
                                 </div>
 
                                 {result.data.cursor && (

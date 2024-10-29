@@ -29,7 +29,7 @@ interface TradeHistoryResponse {
 
 const TradeHistory: React.FC = () => {
     const [slug, setSlug] = useState("fractal-pepe-1");
-    const [limit, setLimit] = useState("10");
+    const [limit, setLimit] = useState("100");
     const [sort, setSort] = useState<"desc" | "asc">("desc");
     const [isBrc20, setIsBrc20] = useState(false);
     const [tradeWalletAddress, setTradeWalletAddress] = useState("");
