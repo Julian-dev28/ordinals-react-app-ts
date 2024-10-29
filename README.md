@@ -73,9 +73,14 @@ OKX_API_PASSPHRASE=
 ```
 
 
-5. Run the app:
+5. Start the proxy server:
    ```
-   npm run start
+   node ordinals-server.cjs
+   ```
+
+6. Run the app:
+   ```
+   npm run dev
    ```
 
 This will start the API server. Use [http://localhost:5173](http://localhost:5173) as the base URL for your API requests.
