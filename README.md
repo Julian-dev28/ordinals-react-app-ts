@@ -43,7 +43,7 @@ npm install
 ```
 
 4. Start the proxy server:
-- Use the `Run` button provided by Replit to start the React app
+- Use the `Run` button provided by Replit to start the the proxy server.
 - This action runs executes following command:
 ```
 node ordinals-server.cjs
