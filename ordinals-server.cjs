@@ -14,16 +14,6 @@ app.use(cors());
 // Middleware to parse JSON bodies
 app.use(express.json());
 
-// // Function to create the pre-hash string for signature
-// function preHash(timestamp, method, path, body) {
-//   return timestamp + method + path + (body ? JSON.stringify(body) : '');
-// }
-
-// // Function to generate the HMAC-SHA256 signature
-// function sign(message, secret) {
-//   return cryptoJS.enc.Base64.stringify(cryptoJS.HmacSHA256(message, secret));
-// }
-
 // New endpoint for fetching inscriptions
 
 function preHash(timestamp, method, path, body) {
