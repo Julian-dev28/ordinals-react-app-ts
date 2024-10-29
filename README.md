@@ -75,18 +75,19 @@ This will start the API server. Use [http://localhost:5173](http://localhost:517
 
 ## Project Structure
 
-- `src/server.ts`: The main server entry file
-- `src/routes.ts`: Definitions for API routes
-- `src/controllers/ordinalsController.ts`: Logic for handling ordinals data requests
-- `src/index.css`: Styling for API documentation (if applicable)
+- `./ordinals-server.cjs`: The server for the proxy API service
+- `./src/components/`: React components for the frontend
+- `./src/components/OrdinalsFetcher.tsx`: Component for fetching ordinals data
+- `./src/components/RetrieveInscriptions.tsx`: Component for retrieving inscription data 
+- `./src/components/TradeHistory.ts`: Component for displaying trade history of a specific ordinal
+
 
 ## Customization
 
-You can customize the API service by modifying the following:
+You can customize the App service by modifying the following:
 
-- API Routes: Edit the route definitions in `src/routes.ts`
-- Ordinals logic: Update functions in `src/controllers/ordinalsController.ts`
-- Server configuration: Modify settings in `src/server.ts`
+- `./ordinals-server.cjs`: Update the API routes and data handling logic
+- `./src/components/`: Update the React components to change the frontend behavior
 
 ## Contributing
 
@@ -110,4 +111,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## Contact
 
 If you have any questions or feedback, please open an issue in this repository.
-You can also contact us via the [OKX OS Discord Channel](https://discord.com/channels/1260193012223578164/1267467417848643585).
+You can also contact us via the [OKX OS Discord Channel](https://discord.gg/k6Z7VYsF).
