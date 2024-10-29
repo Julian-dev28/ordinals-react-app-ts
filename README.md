@@ -42,18 +42,27 @@ OKX_API_PASSPHRASE=
 npm install
 ```
 
-4. Run the App:
-   - Use the `Run` button provided by Replit to start the React app.
+4. Start the proxy server:
+- Use the `Run` button provided by Replit to start the React app
+- This action runs executes following command:
+```
+node ordinals-server.cjs
+```
+
+5. In another terminal window, run the app:
+```
+npm run dev
+```
 
 ## Using GitHub
-1. Clone the repository:
+1. Clone the [repository](https://github.com/Julian-dev28/ordinals-react-app-ts):
 ```
-git clone https://github.com/Julian-dev28/fractal-ordinals-api.git
+git clone https://github.com/Julian-dev28/ordinals-react-app-ts.git
 ```
 
 2. Navigate to the project directory:
 ```
-cd fractal-ordinals-api
+cd ordinals-react-app-ts
 ```
 
 3. Install the dependencies:
@@ -70,14 +79,14 @@ OKX_API_PASSPHRASE=
 
 
 5. Start the proxy server:
-   ```
-   node ordinals-server.cjs
-   ```
+```
+node ordinals-server.cjs
+```
 
 6. In another terminal window, run the app:
-   ```
-   npm run dev
-   ```
+```
+npm run dev
+```
 
 This will start the React app. Use [http://localhost:5173](http://localhost:5173) to view the frontend and observer your console to see call/response data.
 
