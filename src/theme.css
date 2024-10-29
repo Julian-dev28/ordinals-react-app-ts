@@ -261,3 +261,302 @@ button {
     background-color: var(--primary-color);
     color: var(--background-color);
 }
+
+:root {
+    --primary-color: #ADFF2F;
+    --background-color: #000000;
+    --surface-color: #111111;
+    --text-color: #FFFFFF;
+    --error-color: #FF4500;
+    --disabled-color: #4D7F00;
+    --hover-color: #8BFF00;
+}
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: 'Roboto', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    line-height: 1.6;
+}
+
+/* Container and Layout */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Typography */
+h2 {
+    color: var(--primary-color);
+    font-size: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* Form Styles */
+.form-section {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto 2rem auto;
+}
+
+.input-container {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.input-container label {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.input-container input {
+    width: 100%;
+    background-color: var(--surface-color);
+    color: var(--text-color);
+    border: 2px solid var(--primary-color);
+    padding: 12px 20px;
+    border-radius: 30px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.input-container input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--hover-color);
+}
+
+/* Select Styles */
+.sort-select,
+.transaction-select {
+    background-color: var(--surface-color);
+    color: var(--text-color);
+    border: 2px solid var(--primary-color);
+    padding: 12px 20px;
+    border-radius: 30px;
+    font-size: 1rem;
+    width: 100%;
+    cursor: pointer;
+}
+
+/* Checkbox Styles */
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 0.5rem;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: auto;
+    cursor: pointer;
+}
+
+/* Button Styles */
+.fetch-button {
+    background: linear-gradient(45deg, var(--primary-color), var(--hover-color));
+    color: var(--background-color);
+    border: none;
+    padding: 12px 24px;
+    width: 100%;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 30px;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.fetch-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(173, 255, 47, 0.3);
+}
+
+.fetch-button.disabled {
+    background: var(--disabled-color);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.load-more-button {
+    background: linear-gradient(45deg, var(--primary-color), var(--hover-color));
+    color: var(--background-color);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 1rem auto;
+    display: block;
+    max-width: 200px;
+}
+
+/* Results Section */
+.results-section {
+    width: 100%;
+    margin-top: 2rem;
+    overflow-x: hidden;
+}
+
+.quote-details {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.results-info {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+/* Data Items Grid */
+.quote-compare-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem;
+    width: 100%;
+}
+
+.data-item {
+    background-color: var(--surface-color);
+    padding: 1.5rem;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    break-inside: avoid;
+}
+
+/* Inscription/Trade Details */
+.inscription-header,
+.trade-header {
+    border-bottom: 1px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.inscription-details,
+.trade-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    word-break: break-word;
+}
+
+.trade-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.trade-field strong {
+    color: var(--primary-color);
+}
+
+/* Badge Styles */
+.brc20-badge {
+    padding: 4px 8px;
+    border-radius: 16px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: var(--disabled-color);
+    color: var(--background-color);
+}
+
+.brc20-badge.active {
+    background-color: var(--primary-color);
+}
+
+.trade-type {
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 0.8rem;
+    background-color: var(--primary-color);
+    color: var(--background-color);
+}
+
+/* Status Messages */
+.error-message {
+    color: var(--error-color);
+    text-align: center;
+    padding: 1rem;
+    margin: 1rem auto;
+    max-width: 600px;
+    border-left: 4px solid var(--error-color);
+    background-color: rgba(255, 69, 0, 0.1);
+}
+
+.loading-message {
+    color: var(--primary-color);
+    font-weight: bold;
+    text-align: center;
+    margin: 2rem 0;
+}
+
+/* Scrollbar Styling */
+.quote-details::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+}
+
+.quote-details::-webkit-scrollbar-track {
+    background: var(--surface-color);
+    border-radius: 4px;
+}
+
+.quote-details::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .quote-compare-list {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 0.5rem;
+    }
+
+    .data-item {
+        padding: 1rem;
+    }
+
+    .input-container input,
+    .sort-select,
+    .transaction-select {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+    }
+}

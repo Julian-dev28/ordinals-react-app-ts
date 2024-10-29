@@ -1,5 +1,5 @@
 // src/App.jsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import OrdinalsFetcher from './components/OrdinalsFetcher';
 import RetrieveInscriptions from './components/RetrieveInscriptions';
 import TradeHistory from './components/TradeHistory';
