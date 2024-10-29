@@ -87,7 +87,7 @@ node ordinals-server.cjs
 npm run dev
 ```
 
-This will start the React app. Use [http://localhost:5173](http://localhost:5173) to view the frontend and observer your console to see call/response data.
+This will start the React app. Use [http://localhost:5173](http://localhost:5173) to view the frontend and observe your console to see call/response data.
 
 ## Project Structure
 
