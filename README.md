@@ -1,15 +1,12 @@
 # Fractal Bitcoin Ordinals React App
 
-**Explore the live deployment of this App:**
-[Fractal Ordinals API Demo](https://fractal-demo-Juliandev28.replit.app)
-
-This boilerplate is an demonstrates interaction with the OKX OS Fractal Bitcoin APIs, offering a seamless and easy-to-use interface for retrieving and managing ordinals data.
+This boilerplate is an app that demonstrates interaction with the OKX OS Fractal Bitcoin APIs, offering a seamless and easy-to-use interface for retrieving and managing ordinals data.
 
 ## Features
 
 - Access to Fractal Bitcoin Ordinals
 - Secure and efficient data handling
-- Boilerplate API service
+- Boilerplate react app
 
 ## Technologies Used
 
@@ -39,31 +36,30 @@ OKX_API_SECRET=
 OKX_API_PASSPHRASE=
 ```
 
-
 3. Install the dependencies
    - In Replit, open the shell terminal and run the following command:
-   ```
-   npm install
-   ```
+```
+npm install
+```
 
 4. Run the App:
    - Use the `Run` button provided by Replit to start the React app.
 
 ## Using GitHub
 1. Clone the repository:
-   ```
-   git clone https://github.com/Julian-dev28/fractal-ordinals-api.git
-   ```
+```
+git clone https://github.com/Julian-dev28/fractal-ordinals-api.git
+```
 
 2. Navigate to the project directory:
-   ```
-   cd fractal-ordinals-api
-   ```
+```
+cd fractal-ordinals-api
+```
 
 3. Install the dependencies:
-   ```
-   npm install
-   ```
+```
+npm install
+```
 
 4. Set up your environment variables (consider using a .env file):
 ```
@@ -78,12 +74,12 @@ OKX_API_PASSPHRASE=
    node ordinals-server.cjs
    ```
 
-6. Run the app:
+6. In another terminal window, run the app:
    ```
    npm run dev
    ```
 
-This will start the API server. Use [http://localhost:5173](http://localhost:5173) as the base URL for your API requests.
+This will start the React app. Use [http://localhost:5173](http://localhost:5173) to view the frontend and observer your console to see call/response data.
 
 ## Project Structure
 
@@ -92,6 +88,7 @@ This will start the API server. Use [http://localhost:5173](http://localhost:517
 - `./src/components/OrdinalsFetcher.tsx`: Component for fetching ordinals data
 - `./src/components/RetrieveInscriptions.tsx`: Component for retrieving inscription data 
 - `./src/components/TradeHistory.ts`: Component for displaying trade history of a specific ordinal
+- `./src/services/okxServices.ts` : Service for interacting with the OKX API
 
 
 ## Customization
@@ -100,6 +97,7 @@ You can customize the App service by modifying the following:
 
 - `./ordinals-server.cjs`: Update the API routes and data handling logic
 - `./src/components/`: Update the React components to change the frontend behavior
+- `./src/services/okxServices.ts`: Update the service methods to change the API interaction logic
 
 ## Contributing
 
