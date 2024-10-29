@@ -46,9 +46,8 @@ OKX_API_PASSPHRASE=
    npm install
    ```
 
-4. Start the service:
-   - Use the `Run` button provided by Replit to start the API service.
-   - Once the server starts, it will give an endpoint URL for accessing the API.
+4. Run the App:
+   - Use the `Run` button provided by Replit to start the React app.
 
 ## Using GitHub
 1. Clone the repository:
@@ -66,9 +65,17 @@ OKX_API_PASSPHRASE=
    npm install
    ```
 
-4. Start the service:
+4. Set up your environment variables (consider using a .env file):
+```
+OKX_API_KEY=
+OKX_API_SECRET=
+OKX_API_PASSPHRASE=
+```
+
+
+5. Run the app:
    ```
-   npm start
+   npm run start
    ```
 
 This will start the API server. Use [http://localhost:5173](http://localhost:5173) as the base URL for your API requests.

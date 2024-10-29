@@ -1,6 +1,6 @@
 // src/components/TradeHistory.tsx
-import { useState } from 'react';
-import okxService from '../services/okxService';
+import { useState, useCallback } from "react";
+import okxService from "../services/okxService";
 
 interface TradeActivity {
     amount: string;
@@ -28,15 +28,16 @@ interface TradeHistoryResponse {
 }
 
 const TradeHistory: React.FC = () => {
-    const [slug, setSlug] = useState('fractal-pepe-1');
-    const [limit, setLimit] = useState('10');
-    const [sort, setSort] = useState<'desc' | 'asc'>('desc');
+    const [slug, setSlug] = useState("fractal-pepe-1");
+    const [limit, setLimit] = useState("10");
+    const [sort, setSort] = useState<"desc" | "asc">("desc");
     const [isBrc20, setIsBrc20] = useState(false);
-    const [tradeWalletAddress, setTradeWalletAddress] = useState('');
-    const [type, setType] = useState('SALE');
+    const [tradeWalletAddress, setTradeWalletAddress] = useState("");
+    const [type, setType] = useState("SALE");
     const [result, setResult] = useState<TradeHistoryResponse | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
+    const [cursor, setCursor] = useState("");
 
     const formatTimestamp = (timestamp: number) => {
         return new Date(timestamp * 1000).toLocaleString();
@@ -48,7 +49,7 @@ const TradeHistory: React.FC = () => {
 
     const fetchTradeHistory = async () => {
         if (!slug.trim()) {
-            setError('Slug is required');
+            setError("Slug is required");
             return;
         }
 
@@ -62,17 +63,28 @@ const TradeHistory: React.FC = () => {
                 sort,
                 isBrc20,
                 ...(tradeWalletAddress && { tradeWalletAddress }),
-                ...(type && { type })
+                ...(type && { type }),
             });
 
             setResult(response);
         } catch (error) {
-            setError(error instanceof Error ? error.message : 'Error fetching trade history');
-            console.error('Error:', error);
+            setError(
+                error instanceof Error
+                    ? error.message
+                    : "Error fetching trade history",
+            );
+            console.error("Error:", error);
         } finally {
             setLoading(false);
         }
     };
+
+    const handleNextPage = useCallback(() => {
+        if (result?.data?.cursor) {
+            setCursor(result.data.cursor);
+            fetchTradeHistory();
+        }
+    }, [result]);
 
     return (
         <div className="container">
@@ -103,7 +115,13 @@ const TradeHistory: React.FC = () => {
 
                 <div className="input-container">
                     <label>Sort Order:</label>
-                    <select value={sort} onChange={(e) => setSort(e.target.value as 'desc' | 'asc')} className="sort-select">
+                    <select
+                        value={sort}
+                        onChange={(e) =>
+                            setSort(e.target.value as "desc" | "asc")
+                        }
+                        className="sort-select"
+                    >
                         <option value="desc">Latest First</option>
                         <option value="asc">Oldest First</option>
                     </select>
@@ -131,7 +149,11 @@ const TradeHistory: React.FC = () => {
 
                 <div className="input-container">
                     <label>Transaction Type:</label>
-                    <select value={type} onChange={(e) => setType(e.target.value)} className="transaction-select">
+                    <select
+                        value={type}
+                        onChange={(e) => setType(e.target.value)}
+                        className="transaction-select"
+                    >
                         <option value="SALE">Sale</option>
                         <option value="LIST">List</option>
                         <option value="TRANSFER">Transfer</option>
@@ -143,9 +165,9 @@ const TradeHistory: React.FC = () => {
                 <button
                     onClick={fetchTradeHistory}
                     disabled={loading}
-                    className={`fetch-button ${loading ? 'disabled' : ''}`}
+                    className={`fetch-button ${loading ? "disabled" : ""}`}
                 >
-                    {loading ? 'Loading...' : 'Fetch Trade History'}
+                    {loading ? "Loading..." : "Fetch Trade History"}
                 </button>
             </div>
 
@@ -154,83 +176,134 @@ const TradeHistory: React.FC = () => {
             {result && (
                 <div className="results-section">
                     <div className="quote-details">
-                        <h3>Response Status: {result.code === 0 ? 'Success' : 'Error'}</h3>
-                        {result.msg && <p className="response-message">{result.msg}</p>}
+                        <h3>
+                            Response Status:{" "}
+                            {result.code === 0 ? "Success" : "Error"}
+                        </h3>
+                        {result.msg && (
+                            <p className="response-message">{result.msg}</p>
+                        )}
 
                         {result.code === 0 && result.data?.data && (
                             <>
                                 <div className="results-info">
-                                    <p>Found {result.data.data.length} trade activities</p>
+                                    <p>
+                                        Found {result.data.data.length} trade
+                                        activities
+                                    </p>
                                     {result.data.cursor && (
-                                        <p>Next Page Cursor: {result.data.cursor}</p>
+                                        <p>
+                                            Next Page Cursor:{" "}
+                                            {result.data.cursor}
+                                        </p>
                                     )}
                                 </div>
 
                                 <div className="quote-compare-list">
                                     {result.data.data.map((activity, index) => (
-                                        <div key={`${activity.inscriptionId}-${index}`} className="data-item">
+                                        <div
+                                            key={`${activity.inscriptionId}-${index}`}
+                                            className="data-item"
+                                        >
                                             <div className="trade-header">
-                                                <strong>Trade #{index + 1}</strong>
-                                                <span className={`trade-type ${activity.type.toLowerCase()}`}>
+                                                <strong>
+                                                    Trade #{index + 1}
+                                                </strong>
+                                                <span
+                                                    className={`trade-type ${activity.type.toLowerCase()}`}
+                                                >
                                                     {activity.type}
                                                 </span>
                                             </div>
                                             <div className="trade-grid">
                                                 <div className="trade-field">
                                                     <strong>Price:</strong>
-                                                    <span>{activity.price} BTC</span>
+                                                    <span>
+                                                        {activity.price} BTC
+                                                    </span>
                                                 </div>
                                                 <div className="trade-field">
                                                     <strong>Amount:</strong>
-                                                    <span>{activity.amount}</span>
+                                                    <span>
+                                                        {activity.amount}
+                                                    </span>
                                                 </div>
                                                 <div className="trade-field">
                                                     <strong>From:</strong>
-                                                    <span title={activity.fromAddress}>
-                                                        {formatAddress(activity.fromAddress)}
+                                                    <span
+                                                        title={
+                                                            activity.fromAddress
+                                                        }
+                                                    >
+                                                        {formatAddress(
+                                                            activity.fromAddress,
+                                                        )}
                                                     </span>
                                                 </div>
                                                 <div className="trade-field">
                                                     <strong>To:</strong>
-                                                    <span title={activity.toAddress}>
-                                                        {formatAddress(activity.toAddress)}
+                                                    <span
+                                                        title={
+                                                            activity.toAddress
+                                                        }
+                                                    >
+                                                        {formatAddress(
+                                                            activity.toAddress,
+                                                        )}
                                                     </span>
                                                 </div>
                                                 <div className="trade-field">
                                                     <strong>Time:</strong>
-                                                    <span>{formatTimestamp(activity.timestamp)}</span>
+                                                    <span>
+                                                        {formatTimestamp(
+                                                            activity.timestamp,
+                                                        )}
+                                                    </span>
                                                 </div>
                                                 <div className="trade-field">
                                                     <strong>Platform:</strong>
-                                                    <span>{activity.orderSourceName}</span>
+                                                    <span>
+                                                        {
+                                                            activity.orderSourceName
+                                                        }
+                                                    </span>
                                                 </div>
                                                 <div className="trade-field">
                                                     <strong>Unit Price:</strong>
-                                                    <span>{activity.unitPrice} FB</span>
+                                                    <span>
+                                                        {activity.unitPrice} FB
+                                                    </span>
                                                 </div>
                                                 <div className="trade-field">
-                                                    <strong>Inscription:</strong>
-                                                    <span title={activity.inscriptionId}>
-                                                        #{activity.inscriptionNumber}
+                                                    <strong>
+                                                        Inscription:
+                                                    </strong>
+                                                    <span
+                                                        title={
+                                                            activity.inscriptionId
+                                                        }
+                                                    >
+                                                        #
+                                                        {
+                                                            activity.inscriptionNumber
+                                                        }
                                                     </span>
                                                 </div>
                                             </div>
                                             <div className="trade-footer">
-                                                <span className={`brc20-badge ${activity.isBrc20 ? 'active' : ''}`}>
+                                                <span
+                                                    className={`brc20-badge ${activity.isBrc20 ? "active" : ""}`}
+                                                >
                                                     BRC-20
                                                 </span>
                                             </div>
                                         </div>
                                     ))}
                                 </div>
-
                                 {result.data.cursor && (
                                     <div className="pagination">
                                         <button
-                                            onClick={() => {
-                                                // Implement cursor pagination here
-                                                console.log('Loading next page with cursor:', result.data.cursor);
-                                            }}
+                                            onClick={handleNextPage}
                                             className="load-more-button"
                                         >
                                             Load More Trades
