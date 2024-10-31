@@ -192,8 +192,8 @@ const TradeHistory: React.FC = () => {
                                         activities
                                     </p>
                                     {result.data.cursor && (
-                                        <p>
-                                            Next Page Cursor:{" "}
+                                        <p className="cursor-info">
+                                            {" "}
                                             {result.data.cursor}
                                         </p>
                                     )}

@@ -1,5 +1,5 @@
 // src/services/okxService.ts
-import axios from 'axios';
+import axios from "axios";
 
 interface OrdinalData {
     slug: string;
@@ -9,6 +9,13 @@ interface OrdinalData {
     volume24h: string | number;
     isBrc20: boolean;
 }
+
+interface OrdinalParams {
+    slug?: string;
+    limit?: string;
+    isBrc20?: boolean;
+}
+
 
 interface InscriptionInfo {
     inscriptionId: string;
@@ -42,7 +49,7 @@ interface TradeHistoryParams {
     slug: string;
     cursor?: string;
     limit?: string;
-    sort?: 'desc' | 'asc';
+    sort?: "desc" | "asc";
     isBrc20?: boolean;
     orderSource?: number[];
     tradeWalletAddress?: string;
@@ -75,42 +82,50 @@ interface TradeHistoryResponse {
 }
 
 class OKXService {
-    async getOrdinals(slug: string): Promise<ApiResponse<{ data: OrdinalData[] }>> {
+    async getOrdinals(params: OrdinalParams = {}): Promise<ApiResponse<{ data: OrdinalData[] }>> {
         try {
-            console.log('getOrdinals: Requesting with slug:', slug);
-            const response = await axios.get<ApiResponse<{ data: OrdinalData[] }>>(`/api/ordinals?slug=${slug}`);
-            console.log('getOrdinals Response:', response.data);
+            console.log("getOrdinals: Requesting with params:", params);
+            const response = await axios.get("/api/ordinals", { params });
+            console.log("getOrdinals Response:", response.data);
             return response.data;
         } catch (error) {
-            console.error('getOrdinals Error:', error);
+            console.error("getOrdinals Error:", error);
             throw error;
         }
     }
 
-    async getInscriptions(params: InscriptionParams): Promise<ApiResponse<InscriptionData>> {
+
+    async getInscriptions(
+        params: InscriptionParams,
+    ): Promise<ApiResponse<InscriptionData>> {
         try {
-            console.log('getInscriptions: Requesting with params:', params);
-            const response = await axios.post<ApiResponse<InscriptionData>>('/api/inscriptions', params);
-            console.log('getInscriptions Response:', response.data);
+            console.log("getInscriptions: Requesting with params:", params);
+            const response = await axios.post<ApiResponse<InscriptionData>>(
+                "/api/inscriptions",
+                params,
+            );
+            console.log("getInscriptions Response:", response.data);
 
             if (response.data.code !== 0) {
-                throw new Error(response.data.msg || 'API Error');
+                throw new Error(response.data.msg || "API Error");
             }
 
             return response.data;
         } catch (error) {
-            console.error('getInscriptions Error:', error);
+            console.error("getInscriptions Error:", error);
             throw error;
         }
     }
-    async getTradeHistory(params: TradeHistoryParams): Promise<TradeHistoryResponse> {
+    async getTradeHistory(
+        params: TradeHistoryParams,
+    ): Promise<TradeHistoryResponse> {
         try {
-            console.log('Getting trade history with params:', params);
-            const response = await axios.post('/api/trade-history', params);
-            console.log('Trade history response:', response.data);
+            console.log("Getting trade history with params:", params);
+            const response = await axios.post("/api/trade-history", params);
+            console.log("Trade history response:", response.data);
             return response.data;
         } catch (error) {
-            console.error('Error fetching trade history:', error);
+            console.error("Error fetching trade history:", error);
             throw error;
         }
     }

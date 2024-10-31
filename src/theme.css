@@ -533,3 +533,44 @@ h2 {
         font-size: 0.9rem;
     }
 }
+
+/* Keep cursor info contained */
+.cursor-info {
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   max-width: 100%;
+   font-size: 0.9em;
+   color: #666;
+}
+
+/* Enforce grid layout */
+.trade-grid {
+   display: grid;
+   grid-template-columns: repeat(4, 1fr); /* 4 columns */
+   gap: 1rem;
+   padding: 1rem;
+}
+
+.trade-field {
+   display: flex;
+   flex-direction: column;
+   gap: 0.5rem;
+}
+
+/* Keep container width fixed */
+.results-section {
+   max-width: 1200px;
+   margin: 0 auto;
+}
+
+.quote-compare-list {
+   display: flex;
+   flex-direction: column;
+   gap: 1rem;
+}
+
+.data-item {
+   border-radius: 8px;
+   overflow: hidden; /* Contains the grid */
+}

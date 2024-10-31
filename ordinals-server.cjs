@@ -37,7 +37,7 @@ app.get('/api/ordinals', async (req, res) => {
     const timestamp = new Date().toISOString().slice(0, -5) + 'Z';
     const apiBaseUrl = 'https://www.okx.com';
     const requestUrl = '/api/v5/mktplace/nft/fractal-ordinals/collections';
-    const queryString = `?limit=${20}&slug=${req.query.slug || ''}&isBrc20=false`;
+    const queryString = `?limit=${req.query.limit || 20}&slug=${req.query.slug || ''}&isBrc20=${req.query.isBrc20 || false}`;
     const apiRequestUrl = apiBaseUrl + requestUrl + queryString;
 
     // Create the pre-hash message and generate the signature
